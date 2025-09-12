@@ -1,0 +1,13 @@
+[
+  {"category":"induction","text":"Prenez une position confortable. Fermez vos yeux. Respirez profondément.", "pause_after_sec":8},
+  {"category":"induction","text":"Avec chaque respiration, votre corps se détend et votre esprit se calme.", "pause_after_sec":8},
+  {"category":"respiration","text":"Inspirez par le nez sur quatre temps, expirez par la bouche sur six temps.", "pause_after_sec":30},
+  {"category":"compte","text":"Nous allons compter de dix à un. Avec chaque nombre, vous vous détendez davantage.", "pause_after_sec":6},
+  {"category":"compte","text":"Dix... neuf... huit...", "pause_after_sec":6},
+  {"category":"compte","text":"Sept... six... cinq...", "pause_after_sec":6},
+  {"category":"compte","text":"Quatre... trois... deux... un...", "pause_after_sec":8},
+  {"category":"silence","text":"Respiration calme. Laissez les distractions s'éloigner comme des nuages dans le ciel.", "pause_after_sec":60},
+  {"category":"autosuggestion","text":"Je suis calme et détendu. Mon esprit est paisible.", "pause_after_sec":9},
+  {"category":"silence","text":"Profitez de ce moment de tranquillité.", "pause_after_sec":90},
+  {"category":"sortie","text":"Ramenez doucement votre attention à la pièce. Quand vous êtes prêt, ouvrez les yeux.", "pause_after_sec":30}
+]
