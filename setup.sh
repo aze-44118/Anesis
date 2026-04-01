@@ -1,76 +1,106 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Anesis — Setup Script
+# Bootstraps the Python virtual environment and validates the environment.
 
-echo "🚀 Meditation Podcast Generator Setup"
-echo "====================================="
+set -euo pipefail
 
-# Python verification
-if ! command -v python3 &> /dev/null; then
-    echo "❌ Python 3 is not installed. Please install it first."
+echo "========================================"
+echo "  Anesis — AI Meditation Podcast Setup  "
+echo "========================================"
+echo ""
+
+# ---------------------------------------------------------------------------
+# Python version check (>= 3.9 required)
+# ---------------------------------------------------------------------------
+if ! command -v python3 &>/dev/null; then
+    echo "ERROR: python3 not found. Please install Python 3.9 or later."
     exit 1
 fi
 
-echo "✅ Python 3 detected"
+PYTHON_VERSION=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+if python3 -c "import sys; sys.exit(0 if sys.version_info >= (3, 9) else 1)"; then
+    echo "[OK] Python $PYTHON_VERSION detected"
+else
+    echo "ERROR: Python 3.9+ required. Found: $PYTHON_VERSION"
+    exit 1
+fi
 
-# Virtual environment creation
-echo "📦 Creating virtual environment..."
-python3 -m venv venv
+# ---------------------------------------------------------------------------
+# Virtual environment
+# ---------------------------------------------------------------------------
+if [ ! -d "venv" ]; then
+    echo "[..] Creating virtual environment..."
+    python3 -m venv venv
+    echo "[OK] Virtual environment created"
+else
+    echo "[OK] Virtual environment already exists"
+fi
 
-# Virtual environment activation
-echo "🔧 Activating virtual environment..."
+echo "[..] Activating virtual environment..."
+# shellcheck disable=SC1091
 source venv/bin/activate
 
-# Dependencies installation
-echo "📚 Installing dependencies..."
-pip install -r requirements.txt
+# ---------------------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------------------
+echo "[..] Upgrading pip..."
+pip install --upgrade pip --quiet
 
-# .env file creation
+echo "[..] Installing dependencies..."
+pip install -r requirements.txt --quiet
+echo "[OK] Dependencies installed"
+
+# ---------------------------------------------------------------------------
+# ffmpeg check (required by pydub for MP3 encoding)
+# ---------------------------------------------------------------------------
+if command -v ffmpeg &>/dev/null; then
+    echo "[OK] ffmpeg detected — MP3 encoding enabled"
+else
+    echo ""
+    echo "[WARN] ffmpeg not found. MP3 encoding requires ffmpeg."
+    echo "       Install it with:"
+    echo "         macOS:          brew install ffmpeg"
+    echo "         Debian/Ubuntu:  sudo apt install ffmpeg"
+    echo "         Windows:        https://ffmpeg.org/download.html"
+    echo ""
+fi
+
+# ---------------------------------------------------------------------------
+# .env file
+# ---------------------------------------------------------------------------
 if [ ! -f .env ]; then
-    echo "🔑 Creating .env file..."
-    cat > .env << EOF
-# API keys configuration for podcast generator
-
-# OpenAI API key (for TTS)
-OPENAI_API_KEY=your_openai_api_key_here
-
-# Supabase configuration (optional)
-SUPABASE_URL=your_supabase_url_here
-SUPABASE_ANON_KEY=your_supabase_anon_key_here
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
-SUPABASE_COVER_URL=https://your-project.supabase.co/storage/v1/object/public/podcasts/cover.png
-EOF
-    echo "⚠️  Don't forget to configure your API keys in the .env file"
+    echo "[..] Creating .env from .env.example..."
+    cp .env.example .env
+    echo "[OK] .env created — edit it and add your API keys before running Anesis"
 else
-    echo "✅ .env file already exists"
+    echo "[OK] .env already exists"
 fi
 
-# Required audio files verification
-echo "🎵 Verifying required audio files..."
-required_files=("data/theta_wave.wav")
-missing_files=()
-
-for file in "${required_files[@]}"; do
-    if [ ! -f "$file" ]; then
-        missing_files+=("$file")
-    fi
-done
-
-if [ ${#missing_files[@]} -eq 0 ]; then
-    echo "✅ Required audio file present"
+# ---------------------------------------------------------------------------
+# Required audio files
+# ---------------------------------------------------------------------------
+echo "[..] Checking required audio files..."
+if [ -f "data/theta_wave.wav" ]; then
+    echo "[OK] data/theta_wave.wav present"
 else
-    echo "⚠️  Missing audio file:"
-    for file in "${missing_files[@]}"; do
-        echo "   - $file"
-    done
-    echo "   Please add a theta_wave.wav file in the data/ folder"
+    echo "[WARN] data/theta_wave.wav not found."
+    echo "       Place a theta-wave audio file at data/theta_wave.wav before generating podcasts."
 fi
 
+# ---------------------------------------------------------------------------
+# Done
+# ---------------------------------------------------------------------------
 echo ""
-echo "🎉 Installation completed!"
+echo "========================================"
+echo "  Setup complete!"
+echo "========================================"
 echo ""
-echo "📖 To get started:"
-echo "   1. Configure your API keys in the .env file"
-echo "   2. Add a theta_wave.wav file in the data/ folder"
-echo "   3. Activate virtual environment: source venv/bin/activate"
-echo "   4. Test with: python main.py generate --t scripts/sample_meditation.json --n test --id my_podcast"
+echo "Next steps:"
+echo "  1. Edit .env and add your OPENAI_API_KEY"
+echo "  2. Place data/theta_wave.wav in the data/ folder"
+echo "  3. Activate the environment: source venv/bin/activate"
+echo "  4. Generate a sample:        python main.py generate \\"
+echo "       --t scripts/sample_meditation_fr.json \\"
+echo "       --n \"My First Meditation\" --id my_collection"
 echo ""
-echo "📚 Check README.md for more information"
+echo "See README.md for the full CLI reference and JSON script format."

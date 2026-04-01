@@ -1,0 +1,47 @@
+[
+  {
+    "category": "induction",
+    "text": "Find a comfortable position. Allow your body to settle. Close your eyes when you are ready.",
+    "pause_after_sec": 8
+  },
+  {
+    "category": "breathing",
+    "text": "Take a slow, deep breath in through your nose for four counts. Hold gently for two. Exhale through your mouth for six counts.",
+    "pause_after_sec": 20
+  },
+  {
+    "category": "breathing",
+    "text": "Again. Inhale deeply. Feel your chest and belly expand. And release. Let the tension dissolve with every exhale.",
+    "pause_after_sec": 20
+  },
+  {
+    "category": "induction",
+    "text": "With each breath, you sink a little deeper into relaxation. There is nothing you need to do right now. Nowhere to be. Simply rest.",
+    "pause_after_sec": 15
+  },
+  {
+    "category": "metaphor",
+    "text": "Imagine yourself standing at the edge of a calm lake. The water is still and clear. The air is fresh and cool. You feel completely safe here.",
+    "pause_after_sec": 12
+  },
+  {
+    "category": "metaphor",
+    "text": "With every breath, the surface of the lake becomes more still. And so do you. Calm. Clear. Present.",
+    "pause_after_sec": 30
+  },
+  {
+    "category": "autosuggestion",
+    "text": "You are at peace. Your mind is clear. Your body is at ease.",
+    "pause_after_sec": 10
+  },
+  {
+    "category": "autosuggestion",
+    "text": "You carry this stillness with you wherever you go.",
+    "pause_after_sec": 15
+  },
+  {
+    "category": "exit",
+    "text": "Begin to bring your awareness back to the room. Gently wiggle your fingers and toes. When you feel ready, open your eyes.",
+    "pause_after_sec": 8
+  }
+]

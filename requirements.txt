@@ -1,19 +1,27 @@
-# Dépendances pour le générateur de podcasts de méditation
+# Runtime dependencies — see pyproject.toml for full project metadata
 
-# Traitement audio
-librosa>=0.10.0
+# Audio processing
 soundfile>=0.12.0
-numpy>=1.21.0
-scipy>=1.7.0
+numpy>=1.21.0,<2.0
 
-# TTS OpenAI
+# OpenAI TTS
 openai>=1.0.0
 
-# Requêtes HTTP
+# HTTP requests
 requests>=2.28.0
 
-# Variables d'environnement
+# Environment variables
 python-dotenv>=0.19.0
 
 # Supabase SDK
 supabase>=2.7.4
+
+# MP3 encoding and ID3 tagging
+pydub>=0.25.1
+mutagen>=1.47.0
+
+# Progress bar
+tqdm>=4.64.0
+
+# Retry logic with exponential back-off
+tenacity>=8.2.0

@@ -11,8 +11,12 @@ data/*
 !data/theta_wave.wav
 !data/.gitkeep
 
-# Scripts personnels de méditation
-scripts/
+# Scripts personnels de méditation (except the bundled example)
+scripts/*
+!scripts/example_meditation_en.json
+
+# Internal documentation
+reports/
 
 # Fichiers temporaires
 *.tmp
@@ -64,6 +68,20 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Fichiers de configuration personnels
+# Local configuration overrides
 config_local.py
 
+# Theta wave cache (auto-generated, can be large)
+data/theta_wave_44100.wav
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+
+# Build artefacts
+*.egg-info/
+dist/
+build/
